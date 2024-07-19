@@ -61,7 +61,7 @@ export const Input = ({
       />
 
       {caption && (
-        <p className="text-[12px] leading-[14px] mt-[3px] text-[#F0BB31]">
+        <p className="text-[12px] select-none leading-[14px] mt-[3px] text-[#F0BB31]">
           {caption}
         </p>
       )}

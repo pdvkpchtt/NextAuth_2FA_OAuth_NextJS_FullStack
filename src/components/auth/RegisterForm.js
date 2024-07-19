@@ -14,28 +14,31 @@ import Social from "./Social";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 
-import { LoginSchema } from "@/schema";
+import { RegisterSchema } from "@/schema";
 
-import { login } from "@/server/auth/login";
+import { signin } from "@/server/auth/signin";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
-    resolver: zodResolver(LoginSchema),
-    defaultValues: { email: "", password: "" },
+    resolver: zodResolver(RegisterSchema),
+    defaultValues: { email: "", password: "", name: "", secondname: "" },
   });
 
   const [result, setResult] = useState(null);
   const [isPending, startTransition] = useTransition();
 
   const handleLogin = async (values) => {
-    const res = await login(values);
+    const res = await signin(values);
     setResult(res);
+
+    if (!res?.error) reset();
   };
 
   const submitForm = (values) => {
@@ -54,7 +57,7 @@ const LoginForm = () => {
 
       <Card style="max-w-[400px] w-full flex flex-col gap-[20px]" padding={10}>
         <TextHead
-          text="Авторизация"
+          text="Регистрация"
           style={"font-medium text-[18px] text-center select-none"}
         />
 
@@ -78,6 +81,28 @@ const LoginForm = () => {
           />
           <Input
             disabled={isPending}
+            type={"secondname"}
+            name="secondname"
+            label="Имя"
+            borderRadius={10}
+            placeholder="Кабиров"
+            error={errors?.secondname}
+            caption={errors?.secondname && errors?.secondname?.message}
+            register={register("secondname")}
+          />
+          <Input
+            disabled={isPending}
+            type={"name"}
+            name="name"
+            label="Имя"
+            borderRadius={10}
+            placeholder="Данил"
+            error={errors?.name}
+            caption={errors?.name && errors?.name?.message}
+            register={register("name")}
+          />
+          <Input
+            disabled={isPending}
             type={"password"}
             name="password"
             label="Пароль"
@@ -90,7 +115,7 @@ const LoginForm = () => {
 
           <ButtonPrimary
             type="submit"
-            text="Войти"
+            text="Создать аккаунт"
             borderRadius={10}
             style="mt-[20px]"
             loader={isPending}
@@ -107,12 +132,12 @@ const LoginForm = () => {
         <p
           className={`break-words select-none text-center text-[#8f8f8f] text-[12px] leading-[14px] font-medium`}
         >
-          Нет аккаунта?{" "}
+          Есть аккаунт?{" "}
           <span
-            onClick={() => router.push("/auth/register")}
+            onClick={() => router.push("/auth/login")}
             className="transition duration-[250ms] text-[#5875e8] cursor-pointer hover:text-[#3A56C5] active:text-[#2C429C]"
           >
-            Зарегестрироваться
+            К авторизации
           </span>
         </p>
       </Card>
@@ -120,4 +145,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
