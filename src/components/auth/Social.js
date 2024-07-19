@@ -15,21 +15,21 @@ const Social = () => {
         borderRadius={10}
         style="w-full flex justify-center"
       >
-        <FcGoogle size={25} />
+        <FcGoogle size={22} />
       </ButtonOpacity>
       <ButtonOpacity
         padding={8}
         borderRadius={10}
         style="w-full flex justify-center"
       >
-        <FaYandex size={23} color="#ff3700" />
+        <FaYandex size={20} color="#ff3700" />
       </ButtonOpacity>
       <ButtonOpacity
         padding={8}
         borderRadius={10}
         style="w-full flex justify-center"
       >
-        <VkIcon size={30} />
+        <VkIcon size={26.4} />
       </ButtonOpacity>
     </div>
   );

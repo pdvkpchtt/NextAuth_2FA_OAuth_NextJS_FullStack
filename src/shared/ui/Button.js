@@ -1,5 +1,7 @@
 "use client";
 
+import { Oval } from "react-loader-spinner";
+
 import ArrowLeftIcon from "../icons/ArrowLeftIcon";
 
 export const ButtonPrimary = ({
@@ -9,9 +11,10 @@ export const ButtonPrimary = ({
   borderRadius = 12,
   onClick = () => {},
   children,
+  loader = false,
 }) => {
   const clickHandler = () => {
-    onClick();
+    if (!loader) onClick();
   };
 
   return (
@@ -23,7 +26,22 @@ export const ButtonPrimary = ({
     >
       {children && <div className="mr-[8px]">{children}</div>}
 
-      <>{text}</>
+      {!loader ? (
+        <>{text}</>
+      ) : (
+        <Oval
+          height={18}
+          width={18}
+          color="rgba(255, 255, 255, 1)"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="rgba(255, 255, 255, 0.3)"
+          strokeWidth={6}
+          strokeWidthSecondary={6}
+        />
+      )}
     </button>
   );
 };

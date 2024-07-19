@@ -1,6 +1,6 @@
 "use client";
 
-import * as z from "zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -10,8 +10,11 @@ import TextHead from "@/shared/text/TextHead";
 import TextSecondary from "@/shared/text/TextSecondary";
 import Card from "@/shared/ui/Card";
 import Social from "./Social";
+import FormError from "./FormError";
 
 import { LoginSchema } from "@/schema";
+
+import { login } from "@/server/auth/login";
 
 const LoginForm = () => {
   const {
@@ -23,8 +26,12 @@ const LoginForm = () => {
     defaultValues: { email: "", password: "" },
   });
 
-  const submitForm = async () => {
-    console.log("submit");
+  const [loading, setLoading] = useState(false);
+
+  const submitForm = async (values) => {
+    setLoading(true);
+    await login(values);
+    setLoading(false);
   };
 
   return (
@@ -38,6 +45,8 @@ const LoginForm = () => {
           text="Авторизация"
           style={"font-medium text-[18px] text-center select-none"}
         />
+
+        {/* <FormError message={"Something went wrong"} /> */}
 
         <form
           className="flex flex-col gap-[12px]"
@@ -58,7 +67,7 @@ const LoginForm = () => {
             name="password"
             label="Пароль"
             borderRadius={10}
-            placeholder="Пароль"
+            placeholder="••••••••••••"
             error={errors?.password}
             caption={errors?.password && errors?.password?.message}
             register={register("password")}
@@ -69,6 +78,7 @@ const LoginForm = () => {
             text="Войти"
             borderRadius={10}
             style="mt-[20px]"
+            loader={loading}
           />
         </form>
 
