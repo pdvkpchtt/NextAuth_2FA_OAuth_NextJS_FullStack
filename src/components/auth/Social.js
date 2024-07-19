@@ -29,7 +29,7 @@ const Social = () => {
         borderRadius={10}
         style="w-full flex justify-center"
       >
-        <VkIcon size={26.4} />
+        <VkIcon size={22} />
       </ButtonOpacity>
     </div>
   );

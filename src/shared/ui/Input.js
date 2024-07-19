@@ -13,6 +13,7 @@ export const Input = ({
   type = "text",
   name = "",
   register,
+  disabled = false,
 }) => {
   return (
     <div className="flex flex-col min-w-[20px] w-full">
@@ -45,6 +46,7 @@ export const Input = ({
       )}
 
       <input
+        disabled={disabled}
         name={name}
         placeholder={placeholder}
         value={value}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -11,6 +11,7 @@ import TextSecondary from "@/shared/text/TextSecondary";
 import Card from "@/shared/ui/Card";
 import Social from "./Social";
 import FormError from "./FormError";
+import FormSuccess from "./FormSuccess";
 
 import { LoginSchema } from "@/schema";
 
@@ -25,13 +26,20 @@ const LoginForm = () => {
     resolver: zodResolver(LoginSchema),
     defaultValues: { email: "", password: "" },
   });
+  const [result, setResult] = useState(null);
+  const [isPending, startTransition] = useTransition();
 
-  const [loading, setLoading] = useState(false);
+  const handleLogin = async (values) => {
+    const res = await login(values);
+    setResult(res);
+  };
 
-  const submitForm = async (values) => {
-    setLoading(true);
-    await login(values);
-    setLoading(false);
+  const submitForm = (values) => {
+    setResult(null);
+
+    startTransition(() => {
+      handleLogin(values);
+    });
   };
 
   return (
@@ -46,13 +54,15 @@ const LoginForm = () => {
           style={"font-medium text-[18px] text-center select-none"}
         />
 
-        {/* <FormError message={"Something went wrong"} /> */}
+        <FormError message={result?.error || null} />
+        <FormSuccess message={result?.success || null} />
 
         <form
           className="flex flex-col gap-[12px]"
           onSubmit={handleSubmit(submitForm)}
         >
           <Input
+            disabled={isPending}
             type={"email"}
             name="email"
             label="E-mail"
@@ -63,6 +73,7 @@ const LoginForm = () => {
             register={register("email")}
           />
           <Input
+            disabled={isPending}
             type={"password"}
             name="password"
             label="Пароль"
@@ -78,7 +89,7 @@ const LoginForm = () => {
             text="Войти"
             borderRadius={10}
             style="mt-[20px]"
-            loader={loading}
+            loader={isPending}
           />
         </form>
 
