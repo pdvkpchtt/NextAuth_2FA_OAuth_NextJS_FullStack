@@ -8,7 +8,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ru">
-      <body className="">{children}</body>
+      <body
+      // className="
+      //   flex flex-col justify-start
+      //   max-w-[1012px]
+      //   [@media(pointer:coarse)]:max-w-[500px] mx-auto
+      //   items-start [@media(pointer:coarse)]:items-center
+      // "
+      >
+        {children}
+      </body>
     </html>
   );
 }
