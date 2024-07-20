@@ -29,8 +29,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return true;
     },
     async session({ token, session }) {
-      console.log({ token, session });
-
       // добавляем в сессию нужные поля
       if (token.sub && session.user) session.user.id = token.sub;
       if (token.role && session.user) session.user.role = token.role;

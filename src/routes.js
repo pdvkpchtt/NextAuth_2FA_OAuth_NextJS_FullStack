@@ -1,17 +1,13 @@
 /**
  * Публичне роуты, не требующие аутентификации для посещения
  */
-export const publicRoutes = ["/"];
+export const publicRoutes = ["/", "/auth/new-verification"];
 
 /**
  * Роуты для аутентификации
  * Они редиректнут юзера на /settings
  */
-export const authRoutes = [
-  "/auth/login",
-  "/auth/register",
-  "/auth/new-verification",
-];
+export const authRoutes = ["/auth/login", "/auth/register"];
 
 /**
  * Этот роут доступен всегда, вне зависимости от статуса аутентификации
