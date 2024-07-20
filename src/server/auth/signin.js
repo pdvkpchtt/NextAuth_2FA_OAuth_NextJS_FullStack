@@ -15,7 +15,7 @@ export const signin = async (values) => {
     return { error: "Что-то пошло не так" };
   }
 
-  const { email, name, secondname, password } = validatedFields.data;
+  const { email, name, password } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const existingUser = await getUserByEmail(email.toLowerCase());
@@ -26,7 +26,6 @@ export const signin = async (values) => {
     data: {
       email: email.toLowerCase(),
       name,
-      secondname,
       password: hashedPassword,
       // если это бизнес почта
       role: CompanyEmailValidator.isCompanyEmail(email.toLowerCase())

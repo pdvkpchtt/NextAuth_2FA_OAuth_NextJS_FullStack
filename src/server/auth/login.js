@@ -17,7 +17,7 @@ export const login = async (values) => {
 
   try {
     await signIn("credentials", {
-      email,
+      email: email.toLowerCase(),
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });

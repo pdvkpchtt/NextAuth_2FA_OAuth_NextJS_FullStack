@@ -28,7 +28,7 @@ const RegisterForm = () => {
     reset,
   } = useForm({
     resolver: zodResolver(RegisterSchema),
-    defaultValues: { email: "", password: "", name: "", secondname: "" },
+    defaultValues: { email: "", password: "", name: "" },
   });
 
   const [result, setResult] = useState(null);
@@ -97,22 +97,11 @@ const RegisterForm = () => {
           />
           <Input
             disabled={isPending}
-            type={"secondname"}
-            name="secondname"
-            label="Имя"
-            borderRadius={10}
-            placeholder="Кабиров"
-            error={errors?.secondname}
-            caption={errors?.secondname && errors?.secondname?.message}
-            register={register("secondname")}
-          />
-          <Input
-            disabled={isPending}
             type={"name"}
             name="name"
             label="Имя"
             borderRadius={10}
-            placeholder="Данил"
+            placeholder="Кабиров Данил"
             error={errors?.name}
             caption={errors?.name && errors?.name?.message}
             register={register("name")}
