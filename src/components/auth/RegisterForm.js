@@ -69,8 +69,8 @@ const RegisterForm = () => {
           />
         </div>
 
-        <FormError message={result?.error || null} />
-        <FormSuccess message={result?.success || null} />
+        <FormError message={result?.error} />
+        <FormSuccess message={result?.success} />
 
         <form
           className="flex flex-col gap-[12px]"

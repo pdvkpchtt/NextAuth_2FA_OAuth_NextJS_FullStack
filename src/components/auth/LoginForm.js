@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Input } from "@/shared/ui/Input";
 import { ButtonPrimary } from "@/shared/ui/Button";
@@ -20,6 +20,11 @@ import { login } from "@/server/auth/login";
 
 const LoginForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Проверьте способ авторизации"
+      : null;
 
   const {
     register,
@@ -58,8 +63,8 @@ const LoginForm = () => {
           style={"font-medium text-[18px] text-center select-none"}
         />
 
-        <FormError message={result?.error || null} />
-        <FormSuccess message={result?.success || null} />
+        <FormError message={result?.error || urlError} />
+        <FormSuccess message={result?.success} />
 
         <form
           className="flex flex-col gap-[12px]"

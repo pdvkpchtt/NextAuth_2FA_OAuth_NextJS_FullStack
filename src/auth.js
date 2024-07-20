@@ -2,10 +2,21 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { prisma } from "@/server/db";
-import authConfig from "@/auth.config";
 import { getUserById } from "@/server/user/getUser";
+import authConfig from "@/auth.config";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  pages: {
+    signIn: "/auth/login",
+  },
+  events: {
+    async linkAccount({ user }) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
   callbacks: {
     // async signIn({ user }) {
     //   const existingUser = await getUserById(user.id);
