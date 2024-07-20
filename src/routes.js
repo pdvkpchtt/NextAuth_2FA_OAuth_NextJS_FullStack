@@ -7,7 +7,11 @@ export const publicRoutes = ["/"];
  * Роуты для аутентификации
  * Они редиректнут юзера на /settings
  */
-export const authRoutes = ["/auth/login", "/auth/register"];
+export const authRoutes = [
+  "/auth/login",
+  "/auth/register",
+  "/auth/new-verification",
+];
 
 /**
  * Этот роут доступен всегда, вне зависимости от статуса аутентификации

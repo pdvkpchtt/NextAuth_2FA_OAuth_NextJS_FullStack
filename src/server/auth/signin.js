@@ -1,12 +1,14 @@
 "use server";
 
 import bcrypt from "bcryptjs";
-import * as CompanyEmailValidator from "company-email-validator";
+// import * as CompanyEmailValidator from "company-email-validator";
 
 import { prisma } from "../db";
 
 import { RegisterSchema } from "@/schema";
 import { getUserByEmail } from "../user/getUser";
+import { generateVerificationToken } from "./generateVerificationToken";
+import { sendVerificationMail } from "./sendVerificationMail";
 
 export const signin = async (values) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -28,13 +30,20 @@ export const signin = async (values) => {
       name,
       password: hashedPassword,
       // если это бизнес почта
-      role: CompanyEmailValidator.isCompanyEmail(email.toLowerCase())
-        ? "COMPANY"
-        : "USER",
+      // role: CompanyEmailValidator.isCompanyEmail(email.toLowerCase())
+      //   ? "COMPANY"
+      //   : "USER",
     },
   });
 
-  // TODO: Send verif mail
+  const verificationToken = await generateVerificationToken(
+    email.toLowerCase()
+  );
+
+  await sendVerificationMail(
+    verificationToken.email.toLowerCase(),
+    verificationToken.token
+  );
 
   return { success: "Письмо отправлено почту" };
 };

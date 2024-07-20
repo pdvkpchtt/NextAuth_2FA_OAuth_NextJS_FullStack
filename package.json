@@ -12,6 +12,7 @@
     "@auth/prisma-adapter": "^2.4.1",
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.17.0",
+    "@react-email/components": "^0.0.21",
     "bcryptjs": "^2.4.3",
     "company-email-validator": "^1.1.0",
     "dayjs": "^1.11.12",
@@ -31,6 +32,7 @@
     "react-toastify": "^10.0.5",
     "react-waypoint": "^10.3.0",
     "use-clipboard-copy": "^0.2.0",
+    "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

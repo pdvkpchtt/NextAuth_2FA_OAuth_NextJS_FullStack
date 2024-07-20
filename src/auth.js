@@ -18,13 +18,16 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
   },
   callbacks: {
-    // async signIn({ user }) {
-    //   const existingUser = await getUserById(user.id);
+    async signIn({ user, account }) {
+      // позволить OAuth без верификации почты
+      if (account?.provider !== "credentials") return true;
 
-    //   // if (!existingUser || !existingUser.emailVerified) return false;
+      // без верификации нельзя залогиниться
+      const existingUser = await getUserById(user.id);
+      if (!existingUser || !existingUser.emailVerified) return false;
 
-    //   return true;
-    // },
+      return true;
+    },
     async session({ token, session }) {
       console.log({ token, session });
 

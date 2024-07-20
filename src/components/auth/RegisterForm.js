@@ -61,12 +61,12 @@ const RegisterForm = () => {
             text="Регистрация"
             style={"font-medium text-[18px] text-center select-none"}
           />
-          <TextSecondary
+          {/* <TextSecondary
             text={`*при вводе корпоративной почты вы будете зарегестрирированы как компания`}
             style={
               "text-center text-[12px] select-none font-medium leading-[14px]"
             }
-          />
+          /> */}
         </div>
 
         <FormError message={result?.error} />
