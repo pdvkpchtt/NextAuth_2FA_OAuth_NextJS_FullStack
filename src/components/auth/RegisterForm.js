@@ -56,10 +56,16 @@ const RegisterForm = () => {
       </p>
 
       <Card style="max-w-[400px] w-full flex flex-col gap-[20px]" padding={10}>
-        <TextHead
-          text="Регистрация"
-          style={"font-medium text-[18px] text-center select-none"}
-        />
+        <div className="flex flex-col gap-[5px]">
+          <TextHead
+            text="Регистрация"
+            style={"font-medium text-[18px] text-center select-none"}
+          />
+          <TextSecondary
+            text={`*при вводе корпоративной почты вы будете зарегестрирированы как компания`}
+            style={"text-center text-[12px] font-medium leading-[14px]"}
+          />
+        </div>
 
         <FormError message={result?.error || null} />
         <FormSuccess message={result?.success || null} />
@@ -68,6 +74,14 @@ const RegisterForm = () => {
           className="flex flex-col gap-[12px]"
           onSubmit={handleSubmit(submitForm)}
         >
+          {/* <label className="flex flex-row cursor-pointer items-center w-fit">
+            <input type="checkbox" />
+            <TextSecondary
+              text="Мы компания"
+              style="font-medium text-[12px] select-none leading-[14px]"
+            />
+          </label> */}
+
           <Input
             disabled={isPending}
             type={"email"}

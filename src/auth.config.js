@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
+
 import Google from "next-auth/providers/google";
-import YandexProvider from "next-auth/providers/yandex";
-import VkProvider from "next-auth/providers/vk";
+import Yandex from "next-auth/providers/yandex";
+import Vk from "next-auth/providers/vk";
 import Credentials from "next-auth/providers/credentials";
 
 import { LoginSchema } from "@/schema";
@@ -29,6 +30,11 @@ export default {
         return null;
       },
     }),
-    // Google, YandexProvider, VkProvider
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
+    // Yandex,
+    // Vk,
   ],
 };

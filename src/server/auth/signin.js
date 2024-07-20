@@ -1,6 +1,7 @@
 "use server";
 
 import bcrypt from "bcryptjs";
+import * as CompanyEmailValidator from "company-email-validator";
 
 import { prisma } from "../db";
 
@@ -17,12 +18,21 @@ export const signin = async (values) => {
   const { email, name, secondname, password } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const existingUser = await getUserByEmail(email);
+  const existingUser = await getUserByEmail(email.toLowerCase());
 
   if (existingUser) return { error: "E-mail занят" };
 
   await prisma.user.create({
-    data: { email, name, secondname, password: hashedPassword },
+    data: {
+      email: email.toLowerCase(),
+      name,
+      secondname,
+      password: hashedPassword,
+      // если это бизнес почта
+      role: CompanyEmailValidator.isCompanyEmail(email.toLowerCase())
+        ? "COMPANY"
+        : "USER",
+    },
   });
 
   // TODO: Send verif mail
