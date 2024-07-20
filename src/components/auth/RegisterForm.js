@@ -133,12 +133,12 @@ const RegisterForm = () => {
           className={`break-words select-none text-center text-[#8f8f8f] text-[12px] leading-[14px] font-medium`}
         >
           Есть аккаунт?{" "}
-          <span
+          <button
             onClick={() => router.push("/auth/login")}
             className="transition duration-[250ms] text-[#5875e8] cursor-pointer hover:text-[#3A56C5] active:text-[#2C429C]"
           >
             К авторизации
-          </span>
+          </button>
         </p>
       </Card>
     </>

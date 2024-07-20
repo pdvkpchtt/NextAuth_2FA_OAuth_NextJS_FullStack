@@ -50,7 +50,7 @@ export const Input = ({
         name={name}
         placeholder={placeholder}
         value={value}
-        className={`px-[12px] p-[12px] text-[#2c2c2c] dark:text-white text-[14px] bg-[#f6f6f8] dark:bg-[#2c2c2c] placeholder:text-[#bfbfbf] placeholder:select-none dark:placeholder:text-[#8f8f8f] transition duration-[250ms] outline-none placeholder:font-normal leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]`}
+        className={`px-[12px] p-[12px] text-[#2c2c2c] dark:text-white text-[14px] bg-[#f6f6f8] dark:bg-[#2c2c2c] placeholder:text-[#bfbfbf] placeholder:select-none dark:placeholder:text-[#8f8f8f] transition duration-[250ms] placeholder:font-normal leading-[18px] tracking-[-0.015em] placeholder:leading-[18px] placeholder:tracking-[-0.015em]`}
         style={{
           borderRadius,
         }}
