@@ -63,7 +63,9 @@ const RegisterForm = () => {
           />
           <TextSecondary
             text={`*при вводе корпоративной почты вы будете зарегестрирированы как компания`}
-            style={"text-center text-[12px] font-medium leading-[14px]"}
+            style={
+              "text-center text-[12px] select-none font-medium leading-[14px]"
+            }
           />
         </div>
 
@@ -138,7 +140,9 @@ const RegisterForm = () => {
 
         <TextSecondary
           text={`Или`}
-          style={"text-center text-[12px] font-medium leading-[14px]"}
+          style={
+            "text-center text-[12px] select-none font-medium leading-[14px]"
+          }
         />
 
         <Social />

@@ -99,7 +99,9 @@ const LoginForm = () => {
 
         <TextSecondary
           text={`Или`}
-          style={"text-center text-[12px] font-medium leading-[14px]"}
+          style={
+            "text-center text-[12px] select-none font-medium leading-[14px]"
+          }
         />
 
         <Social />
