@@ -52,11 +52,16 @@ export const ButtonOpacity = ({
   borderRadius = 20,
   padding = 12,
   onClick = () => {},
+  title = "",
+  disabled = false,
 }) => {
   return (
     <button
-      style={{ borderRadius, padding }}
-      className={`${style}  group items-center flex flex-row max-w-[260px] [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
+      title={title}
+      style={{ borderRadius, padding, opacity: disabled ? 0.5 : 1 }}
+      className={`${style} ${
+        disabled ? "cursor-default" : "cursor-pointer"
+      }  group items-center relative flex flex-row max-w-[260px] [@media(pointer:coarse)]:max-w-[100%] bg-[#74899B] bg-opacity-[8%]`}
       onClick={onClick}
     >
       {children}
