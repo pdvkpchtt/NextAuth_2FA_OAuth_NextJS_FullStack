@@ -21,7 +21,7 @@ const NewVerificationForm = () => {
   const token = searchParams.get("token");
 
   const onSubmit = useCallback(() => {
-    if (!!result) result;
+    if (!!result) return;
 
     if (!token) {
       setResult({ error: "Ошибка! Отсутсвует токен" });

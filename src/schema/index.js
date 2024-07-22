@@ -14,3 +14,7 @@ export const RegisterSchema = z.object({
 export const ResetPasswordSchema = z.object({
   email: z.string().email({ message: "Неверный формат почты" }),
 });
+
+export const PasswordSchema = z.object({
+  password: z.string().min(6, { message: "Минимум 6 символов" }),
+});

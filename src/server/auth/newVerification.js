@@ -8,8 +8,10 @@ import {
 } from "./verificationToken";
 
 export const newVerification = async (token) => {
+  if (!token) return { error: "Ошибка! Отсутсвует токен" };
+
   const existingToken = await getVerificationTokenByToken(token);
-  if (!existingToken) return { error: "Токен не существует" };
+  if (!existingToken) return { error: "Неверный токен" };
 
   const hasExpired = new Date(existingToken.expires) < new Date();
   if (hasExpired) return { error: "Токен устарел" };
