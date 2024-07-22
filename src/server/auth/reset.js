@@ -19,7 +19,10 @@ export const reset = async (values) => {
     return { error: "Пользователя с такой почтой не существует" };
 
   const passwordResetToken = await generatePasswordResetToken(email);
-  await sendResetMail(email.toLowerCase(), passwordResetToken);
+  await sendResetMail(
+    passwordResetToken.email.toLowerCase(),
+    passwordResetToken.token
+  );
 
   return { success: `Письмо отправлено на почту ${email.toLowerCase()}` };
 };
