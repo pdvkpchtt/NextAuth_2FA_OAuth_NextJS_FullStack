@@ -143,7 +143,6 @@ const RegisterForm = () => {
           Есть аккаунт?{" "}
           <TextHref
             onClick={() => router.push("/auth/login")}
-            style="text-[12px] leading-[14px] font-medium"
             text="К авторизации"
           />
         </p>

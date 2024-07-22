@@ -112,16 +112,23 @@ const LoginForm = () => {
 
         <Social />
 
-        <p
-          className={`break-words select-none text-center text-[#8f8f8f] text-[12px] leading-[14px] font-medium`}
-        >
-          Нет аккаунта?{" "}
+        <div className="space-y-[10px]">
+          <p
+            className={`break-words select-none text-center text-[#8f8f8f] text-[12px] leading-[14px] font-medium`}
+          >
+            Нет аккаунта?{" "}
+            <TextHref
+              onClick={() => router.push("/auth/register")}
+              text="Зарегестрироваться"
+            />
+          </p>
+
           <TextHref
-            onClick={() => router.push("/auth/register")}
-            style="text-[12px] leading-[14px] font-medium"
-            text="Зарегестрироваться"
+            onClick={() => router.push("/auth/reset")}
+            text="Забыли пароль?"
+            style="text-[12px] leading-[14px] font-medium text-center w-full"
           />
-        </p>
+        </div>
       </Card>
     </>
   );

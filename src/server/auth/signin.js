@@ -46,6 +46,6 @@ export const signin = async (values) => {
   );
 
   return {
-    success: `Письмо отправлено почту ${email.toLowerCase()}`,
+    success: `Письмо отправлено на почту ${email.toLowerCase()}`,
   };
 };
