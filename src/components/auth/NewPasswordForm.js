@@ -35,7 +35,7 @@ const NewPasswordForm = () => {
   const [isPending, startTransition] = useTransition();
 
   const handleChange = async (values) => {
-    const res = await newPassword(values);
+    const res = await newPassword(values, token);
     setResult(res);
   };
 
