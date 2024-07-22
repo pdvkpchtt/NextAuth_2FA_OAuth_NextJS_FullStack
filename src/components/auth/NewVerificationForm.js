@@ -10,6 +10,7 @@ import TextSecondary from "@/shared/text/TextSecondary";
 import { newVerification } from "@/server/auth/newVerification";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
+import TextHref from "@/shared/text/TextHref";
 
 const NewVerificationForm = () => {
   const searchParams = useSearchParams();
@@ -65,12 +66,11 @@ const NewVerificationForm = () => {
             />
           </>
         ) : (
-          <button
+          <TextHref
             onClick={() => router.push("/auth/login")}
-            className="transition duration-[250ms] text-[12px] leading-[14px] font-medium text-[#5875e8] cursor-pointer hover:text-[#3A56C5] active:text-[#2C429C]"
-          >
-            К авторизации
-          </button>
+            style="text-[12px] leading-[14px] font-medium"
+            text="К авторизации"
+          />
         )}
       </Card>
     </>

@@ -13,6 +13,7 @@ import Card from "@/shared/ui/Card";
 import Social from "./Social";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
+import TextHref from "@/shared/text/TextHref";
 
 import { RegisterSchema } from "@/schema";
 
@@ -140,12 +141,11 @@ const RegisterForm = () => {
           className={`break-words select-none text-center text-[#8f8f8f] text-[12px] leading-[14px] font-medium`}
         >
           Есть аккаунт?{" "}
-          <button
+          <TextHref
             onClick={() => router.push("/auth/login")}
-            className="transition duration-[250ms] text-[#5875e8] cursor-pointer hover:text-[#3A56C5] active:text-[#2C429C]"
-          >
-            К авторизации
-          </button>
+            style="text-[12px] leading-[14px] font-medium"
+            text="К авторизации"
+          />
         </p>
       </Card>
     </>

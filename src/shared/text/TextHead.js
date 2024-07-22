@@ -1,4 +1,4 @@
-const TextHead = ({ style, text = "" }) => {
+const TextHead = ({ style = "", text = "" }) => {
   return <h1 className={`${style} break-words`}>{text}</h1>;
 };
 

@@ -32,7 +32,7 @@ export const login = async (values) => {
     );
 
     return {
-      success: "Письмо отправлено почту",
+      success: `Письмо отправлено почту ${email.toLowerCase()}`,
     };
   }
 

@@ -1,4 +1,4 @@
-const TextMain = ({ style, text = "" }) => {
+const TextMain = ({ style = "", text = "" }) => {
   return <p className={`${style} break-words `}>{text}</p>;
 };
 

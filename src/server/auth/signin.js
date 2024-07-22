@@ -45,5 +45,7 @@ export const signin = async (values) => {
     verificationToken.token
   );
 
-  return { success: "Письмо отправлено почту" };
+  return {
+    success: `Письмо отправлено почту ${email.toLowerCase()}`,
+  };
 };

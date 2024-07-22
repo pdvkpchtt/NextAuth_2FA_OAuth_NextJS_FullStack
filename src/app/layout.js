@@ -1,3 +1,4 @@
+import Layout from "@/components/layouts/Layout";
 import "./globals.css";
 
 export const metadata = {
@@ -16,7 +17,7 @@ export default function RootLayout({ children }) {
       //   items-start [@media(pointer:coarse)]:items-center
       // "
       >
-        {children}
+        <Layout>{children}</Layout>
       </body>
     </html>
   );

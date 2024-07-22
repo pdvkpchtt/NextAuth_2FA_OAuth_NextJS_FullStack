@@ -6,7 +6,6 @@ export const Input = ({
   caption = "",
   placeholder = "",
   value = undefined,
-  error = false,
   borderRadius = 8,
   maxLength,
   onChange = () => {},
