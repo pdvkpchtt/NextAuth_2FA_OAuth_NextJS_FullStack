@@ -1,12 +1,12 @@
 import { render } from "@react-email/render";
 import nodemailer from "nodemailer";
 
-import VerifyMail from "../mails/VerifyMail";
+import ResetMail from "./ResetMail";
 
-export const sendVerificationMail = async (email, token) => {
-  const confirmLink = `${process.env.AUTH_URL}/auth/new-verification?token=${token}`;
+export const sendResetMail = async (email, token) => {
+  const confirmLink = `${process.env.AUTH_URL}/auth/new-password?token=${token}`;
 
-  const emailHtml = render(<VerifyMail url={confirmLink} />);
+  const emailHtml = render(<ResetMail url={confirmLink} />);
 
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_SERVER_HOST,
@@ -20,7 +20,7 @@ export const sendVerificationMail = async (email, token) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: `Верификация в SwifHire`,
+    subject: `Сброс пароля в SwifHire`,
     html: emailHtml,
   };
 

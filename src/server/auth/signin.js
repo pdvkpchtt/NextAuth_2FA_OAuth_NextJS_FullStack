@@ -8,7 +8,7 @@ import { prisma } from "../db";
 import { RegisterSchema } from "@/schema";
 import { getUserByEmail } from "../user/getUser";
 import { generateVerificationToken } from "./generateVerificationToken";
-import { sendVerificationMail } from "./sendVerificationMail";
+import { sendVerificationMail } from "../mails/sendVerificationMail";
 
 export const signin = async (values) => {
   const validatedFields = RegisterSchema.safeParse(values);

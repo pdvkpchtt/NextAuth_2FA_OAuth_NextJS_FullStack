@@ -7,7 +7,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schema";
 import { getUserByEmail } from "../user/getUser";
 import { generateVerificationToken } from "./generateVerificationToken";
-import { sendVerificationMail } from "./sendVerificationMail";
+import { sendVerificationMail } from "../mails/sendVerificationMail";
 
 export const login = async (values) => {
   const validatedFields = LoginSchema.safeParse(values);

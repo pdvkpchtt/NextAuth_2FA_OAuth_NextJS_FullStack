@@ -1,8 +1,9 @@
 "use server";
 
-import { prisma } from "../db";
 import { getUserByEmail } from "../user/getUser";
 import { ResetPasswordSchema } from "@/schema";
+import { generatePasswordResetToken } from "./generatePasswordResetToken";
+import { sendResetMail } from "../mails/sendResetMail";
 
 export const reset = async (values) => {
   const validatedFields = ResetPasswordSchema.safeParse(values);
@@ -16,6 +17,9 @@ export const reset = async (values) => {
   const existingUser = await getUserByEmail(email.toLowerCase());
   if (!existingUser)
     return { error: "Пользователя с такой почтой не существует" };
+
+  const passwordResetToken = await generatePasswordResetToken(email);
+  await sendResetMail(email.toLowerCase(), passwordResetToken);
 
   return { success: `Письмо отправлено на почту ${email.toLowerCase()}` };
 };
