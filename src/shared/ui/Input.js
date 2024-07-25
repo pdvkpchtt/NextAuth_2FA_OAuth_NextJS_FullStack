@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import TextSecondary from "../text/TextSecondary";
 import CircularProggressBar from "./CircularProggressBar";
 
@@ -11,7 +13,7 @@ export const Input = ({
   onChange = () => {},
   type = "text",
   name = "",
-  register,
+  register = {},
   disabled = false,
 }) => {
   return (
@@ -64,6 +66,98 @@ export const Input = ({
           {caption}
         </p>
       )}
+    </div>
+  );
+};
+
+export const DigitsCodeInput = ({
+  label = "",
+  caption = "",
+  borderRadius = 8,
+  code = undefined,
+  setCode = () => {},
+  disabled = false,
+}) => {
+  const inputRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+
+  function handleInput(e, index) {
+    const input = e.target;
+    const previousInput = inputRefs[index - 1];
+    const nextInput = inputRefs[index + 1];
+
+    const newCode = [...code];
+
+    newCode[index] = input.value;
+
+    setCode(newCode.join(""));
+
+    input.select();
+
+    if (input.value === "") {
+      if (previousInput) {
+        previousInput.current.focus();
+      }
+    } else if (nextInput) {
+      nextInput.current.select();
+    }
+  }
+
+  function handleFocus(e) {
+    e.target.select();
+  }
+
+  function handleKeyDown(e, index) {
+    const input = e.target;
+    const previousInput = inputRefs[index - 1];
+    const nextInput = inputRefs[index + 1];
+
+    if ((e.keyCode === 8 || e.keyCode === 46) && input.value === "") {
+      e.preventDefault();
+      setCode(
+        (prevCode) => prevCode.slice(0, index) + prevCode.slice(index + 1)
+      );
+      if (previousInput) {
+        previousInput.current.focus();
+      }
+    }
+  }
+
+  const handlePaste = (e) => {
+    const pastedCode = e.clipboardData.getData("text");
+    if (pastedCode.length === 6) {
+      setCode(pastedCode);
+      inputRefs.forEach((inputRef, index) => {
+        inputRef.current.value = pastedCode.charAt(index);
+      });
+    }
+  };
+
+  return (
+    <div className="flex flex-row gap-[10px] mx-auto">
+      {[...Array(6)].map((_, key) => (
+        <input
+          key={key}
+          ref={inputRefs[key]}
+          type="text"
+          maxLength={1}
+          onChange={(e) => handleInput(e, key)}
+          onFocus={handleFocus}
+          onKeyDown={(e) => handleKeyDown(e, key)}
+          onPaste={handlePaste}
+          disabled={disabled}
+          className={`px-[12px] w-[42px] p-[12px] text-[#2c2c2c] dark:text-white font-medium text-center text-[14px] bg-[#f6f6f8] dark:bg-[#2c2c2c] transition duration-[250ms] leading-[18px] tracking-[-0.015em]`}
+          style={{
+            borderRadius,
+          }}
+        />
+      ))}
     </div>
   );
 };

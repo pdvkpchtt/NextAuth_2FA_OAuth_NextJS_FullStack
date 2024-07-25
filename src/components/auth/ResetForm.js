@@ -66,7 +66,6 @@ const ResetForm = () => {
           <Input
             disabled={isPending}
             type={"email"}
-            name="email"
             label="E-mail"
             borderRadius={10}
             placeholder="swifthire@gmail.com"

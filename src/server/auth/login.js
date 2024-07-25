@@ -42,7 +42,10 @@ export const login = async (values) => {
     const twoFactorToken = await generateTwoFactorToken(existingUser.email);
     await sendTwoFactorMail(twoFactorToken.email, twoFactorToken.token);
 
-    return { twoFactor: true };
+    return {
+      twoFactor: true,
+      success: `Письмо отправлено на почту ${email.toLowerCase()}`,
+    };
   }
 
   try {

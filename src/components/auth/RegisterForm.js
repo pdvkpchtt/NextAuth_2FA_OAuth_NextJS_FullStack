@@ -88,7 +88,6 @@ const RegisterForm = () => {
           <Input
             disabled={isPending}
             type={"email"}
-            name="email"
             label="E-mail"
             borderRadius={10}
             placeholder="swifthire@gmail.com"
@@ -98,8 +97,6 @@ const RegisterForm = () => {
           />
           <Input
             disabled={isPending}
-            type={"name"}
-            name="name"
             label="Имя"
             borderRadius={10}
             placeholder="Кабиров Данил"
@@ -110,7 +107,6 @@ const RegisterForm = () => {
           <Input
             disabled={isPending}
             type={"password"}
-            name="password"
             label="Пароль"
             borderRadius={10}
             placeholder="••••••••••••"

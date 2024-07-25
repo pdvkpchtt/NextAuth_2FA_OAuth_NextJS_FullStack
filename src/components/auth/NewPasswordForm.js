@@ -26,6 +26,7 @@ const NewPasswordForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(PasswordSchema),
     defaultValues: { password: "" },
@@ -37,6 +38,7 @@ const NewPasswordForm = () => {
   const handleChange = async (values) => {
     const res = await newPassword(values, token);
     setResult(res);
+    reset();
   };
 
   const submitForm = (values) => {
@@ -74,7 +76,6 @@ const NewPasswordForm = () => {
           <Input
             disabled={isPending}
             type={"password"}
-            name="password"
             label="Пароль"
             borderRadius={10}
             placeholder="••••••••••••"

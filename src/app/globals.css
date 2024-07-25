@@ -71,3 +71,15 @@ input[type="checkbox"]:disabled {
 input[type="checkbox"]:disabled {
   color: #c0c0c0;
 }
+
+/* убираем кнопки из инпута с type = number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
