@@ -10,8 +10,15 @@ import { generateVerificationToken } from "../tokens/generateVerificationToken";
 import { sendVerificationMail } from "../mails/sendVerificationMail";
 import { generateTwoFactorToken } from "../tokens/generateTwoFactorToken";
 import { sendTwoFactorMail } from "../mails/sendTwoFactorMail";
+import {
+  deleteTwoFactorToken,
+  getTwoFactorTokenByEmail,
+} from "../tokens/twoFactorToken";
+import { getTwoFactorConfirmationByUserId } from "../twofactor/getTwoFactorConfirmationByUserId";
+import { deleteTwoFactorConfirmation } from "../twofactor/deleteTwoFactorConfirmation";
+import { createTwoFactorConfirmation } from "../twofactor/createTwoFactorConfirmation";
 
-export const login = async (values) => {
+export const login = async (values, code = null) => {
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -38,14 +45,33 @@ export const login = async (values) => {
     };
   }
 
-  if (existingUser.isTwoFactorConfirmation) {
-    const twoFactorToken = await generateTwoFactorToken(existingUser.email);
-    await sendTwoFactorMail(twoFactorToken.email, twoFactorToken.token);
+  if (existingUser.isTwoFactorConfirmation && existingUser.email) {
+    if (code) {
+      const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email);
+      if (!twoFactorToken || twoFactorToken.token !== code)
+        return { error: "Неверный код" };
 
-    return {
-      twoFactor: true,
-      success: `Письмо отправлено на почту ${email.toLowerCase()}`,
-    };
+      const hasExpired = new Date(twoFactorToken.expires) < new Date();
+      if (hasExpired) return { error: "Время работы кода завершено" };
+
+      await deleteTwoFactorToken(twoFactorToken.id);
+
+      const exsistingConfirmation = await getTwoFactorConfirmationByUserId(
+        existingUser.id
+      );
+      if (exsistingConfirmation)
+        await deleteTwoFactorConfirmation(exsistingConfirmation.id);
+
+      await createTwoFactorConfirmation(existingUser.id);
+    } else {
+      const twoFactorToken = await generateTwoFactorToken(existingUser.email);
+      await sendTwoFactorMail(twoFactorToken.email, twoFactorToken.token);
+
+      return {
+        twoFactor: true,
+        success: `Письмо отправлено на почту ${email.toLowerCase()}`,
+      };
+    }
   }
 
   try {

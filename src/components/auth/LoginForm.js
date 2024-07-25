@@ -42,11 +42,13 @@ const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
 
   const handleLogin = async (values) => {
-    const res = await login(values);
-
-    console.log(res);
+    const res = await login(values, code);
 
     if (res?.twoFactor) setShowTwoFactor(true);
+    if (showTwoFactor && res?.error) {
+      setShowTwoFactor(false);
+      setCode("");
+    }
     setResult(res);
   };
 
