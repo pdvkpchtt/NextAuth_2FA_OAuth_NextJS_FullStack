@@ -7,7 +7,7 @@ import { prisma } from "../db";
 
 import { RegisterSchema } from "@/schema";
 import { getUserByEmail } from "../user/getUser";
-import { generateVerificationToken } from "./generateVerificationToken";
+import { generateVerificationToken } from "../tokens/generateVerificationToken";
 import { sendVerificationMail } from "../mails/sendVerificationMail";
 
 export const signin = async (values) => {

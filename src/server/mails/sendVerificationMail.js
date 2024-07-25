@@ -1,12 +1,12 @@
 import { render } from "@react-email/render";
 import nodemailer from "nodemailer";
 
-import VerifyMail from "./VerifyMail";
+import MailVerify from "./MailVerify";
 
 export const sendVerificationMail = async (email, token) => {
   const confirmLink = `${process.env.AUTH_URL}/auth/new-verification?token=${token}`;
 
-  const emailHtml = render(<VerifyMail url={confirmLink} />);
+  const emailHtml = render(<MailVerify url={confirmLink} />);
 
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_SERVER_HOST,

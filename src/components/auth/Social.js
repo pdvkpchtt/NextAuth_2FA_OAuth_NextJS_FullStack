@@ -38,7 +38,7 @@ const Social = () => {
         padding={8}
         borderRadius={10}
         style="w-full flex justify-center"
-        // onClick={() => onClick("vk")}
+        onClick={() => alert("Данная функция в разработке")}
         disabled
         title="В разработке"
       >

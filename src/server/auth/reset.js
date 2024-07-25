@@ -2,7 +2,7 @@
 
 import { getUserByEmail } from "../user/getUser";
 import { ResetPasswordSchema } from "@/schema";
-import { generatePasswordResetToken } from "./generatePasswordResetToken";
+import { generatePasswordResetToken } from "../tokens/generatePasswordResetToken";
 import { sendResetMail } from "../mails/sendResetMail";
 
 export const reset = async (values) => {

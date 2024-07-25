@@ -5,7 +5,7 @@ import { getUserByEmail } from "../user/getUser";
 import {
   deleteVerificationToken,
   getVerificationTokenByToken,
-} from "./verificationToken";
+} from "./../tokens/verificationToken";
 
 export const newVerification = async (token) => {
   if (!token) return { error: "Ошибка! Отсутсвует токен" };

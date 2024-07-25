@@ -1,12 +1,10 @@
 import { render } from "@react-email/render";
 import nodemailer from "nodemailer";
 
-import MailReset from "./MailReset";
+import MailTwoFactor from "./MailTwoFactor";
 
-export const sendResetMail = async (email, token) => {
-  const confirmLink = `${process.env.AUTH_URL}/auth/new-password?token=${token}`;
-
-  const emailHtml = render(<MailReset url={confirmLink} />);
+export const sendTwoFactorMail = async (email, token) => {
+  const emailHtml = render(<MailTwoFactor token={token} />);
 
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_SERVER_HOST,
@@ -20,7 +18,7 @@ export const sendResetMail = async (email, token) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM,
     to: email,
-    subject: `Сброс пароля в SwifHire`,
+    subject: `Двухфакторная аутентификация в SwifHire`,
     html: emailHtml,
   };
 

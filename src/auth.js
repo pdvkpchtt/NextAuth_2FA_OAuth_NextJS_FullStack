@@ -4,6 +4,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/server/db";
 import { getUserById } from "@/server/user/getUser";
 import authConfig from "@/auth.config";
+import { getTwoFactorConfirmationByUserId } from "./server/twofactor/getTwoFactorConfirmationByUserId";
+import { deleteTwoFactorConfirmation } from "./server/twofactor/deleteTwoFactorConfirmation";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   pages: {
@@ -22,9 +24,17 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       // позволить OAuth без верификации почты
       if (account?.provider !== "credentials") return true;
 
-      // без верификации нельзя залогиниться
+      // без верификации нельзя залогиниться + 2fa
       const existingUser = await getUserById(user.id);
       if (!existingUser || !existingUser.emailVerified) return false;
+      if (existingUser.isTwoFactorConfirmation) {
+        const isTwoFactorConfirmationRealyExist =
+          await getTwoFactorConfirmationByUserId(existingUser.id);
+
+        if (!isTwoFactorConfirmationRealyExist) return false;
+
+        await deleteTwoFactorConfirmation(isTwoFactorConfirmationRealyExist.id);
+      }
 
       return true;
     },

@@ -41,6 +41,8 @@ const LoginForm = () => {
 
   const handleLogin = async (values) => {
     const res = await login(values);
+
+    console.log(res);
     setResult(res);
   };
 

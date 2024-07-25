@@ -39,51 +39,51 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  password      String?
-  name          String
-  username      String    @unique @default(cuid())
-  image         String?
-  role          UserRole?
-  isTwoFactorConfirmation Boolean @default(false)
-  TwoFactorConfirmation TwoFactorConfirmation?
+  id                      String                 @id @default(cuid())
+  email                   String?                @unique
+  emailVerified           DateTime?              @map("email_verified")
+  password                String?
+  name                    String
+  username                String                 @unique @default(cuid())
+  image                   String?
+  role                    UserRole?
+  isTwoFactorConfirmation Boolean                @default(false)
+  TwoFactorConfirmation   TwoFactorConfirmation?
 
   accounts Account[]
 }
 
 model TwoFactorConfirmation {
-  id            String    @id @default(cuid())
-  userId        String
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
 
 model VerificationToken {
-  id            String    @id @default(cuid())
-  email         String
-  token         String    @unique
-  expires       DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
   @@unique([email, token])
 }
 
 model PasswordResetToken {
-  id            String    @id @default(cuid())
-  email         String
-  token         String    @unique
-  expires       DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
   @@unique([email, token])
 }
 
 model TwoFactorToken {
-  id            String    @id @default(cuid())
-  email         String
-  token         String    @unique
-  expires       DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
   @@unique([email, token])
 }

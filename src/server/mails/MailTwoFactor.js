@@ -11,11 +11,11 @@ import {
   Head,
 } from "@react-email/components";
 
-const ResetMail = ({ url = "" }) => {
+const MailTwoFactor = ({ token = "" }) => {
   return (
     <Tailwind>
       <Head>
-        <title>Сброс пароля в SwiftHire</title>
+        <title>Двухфакторная аутентификация</title>
       </Head>
       <Body className="w-full bg-transparent flex flex-col items-center justify-center rounded">
         <Body className="w-[560px] bg-[#f6f6f8] pb-[32px] text-center rounded-[20px] mx-auto">
@@ -26,15 +26,14 @@ const ResetMail = ({ url = "" }) => {
             SwifHire
           </Text>
           <Text className="text-[24px] text-[#2c2c2c] font-semibold leading-[24px] mt-[32px] mb-[24px]">
-            Для подтверждения сброса пароля нажмите на кнопку
+            Код для подтверждения двухфакторной аутентификации
           </Text>
 
-          <Button
-            href={url}
-            className={`text-[#fff] text-[14px] cursor-pointer font-medium leading-[16px] tracking-[-0.21px] px-[16px] py-[12px] rounded-[16px] bg-[#5875e8] hover:bg-[#3A56C5] active:bg-[#2C429C] transition-all duration-[250ms]`}
+          <Text
+            className={`text-[#5875e8] text-[32px] cursor-pointer font-semibold leading-[24px] tracking-[24px] ml-[24px] p-0`}
           >
-            Сбросить пароль
-          </Button>
+            {token}
+          </Text>
 
           <Text className="text-[14px] text-[#8f8f8f] font-normal leading-[19px] mt-[40px]">
             Если сообщение отправлено по ошибке, то не отвечайте на него
@@ -45,4 +44,4 @@ const ResetMail = ({ url = "" }) => {
   );
 };
 
-export default ResetMail;
+export default MailTwoFactor;

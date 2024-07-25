@@ -11,7 +11,7 @@ import {
   Head,
 } from "@react-email/components";
 
-const VerifyMail = ({ url = "" }) => {
+const MailVerify = ({ url = "" }) => {
   return (
     <Tailwind>
       <Head>
@@ -45,4 +45,4 @@ const VerifyMail = ({ url = "" }) => {
   );
 };
 
-export default VerifyMail;
+export default MailVerify;

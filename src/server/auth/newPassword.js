@@ -8,7 +8,7 @@ import { getUserByEmail } from "../user/getUser";
 import {
   deletePasswordResetToken,
   getPasswordResetTokenByToken,
-} from "./passwordResetToken";
+} from "../tokens/passwordResetToken";
 
 export const newPassword = async (values, token) => {
   if (!token) return { error: "Ошибка! Отсутсвует токен" };

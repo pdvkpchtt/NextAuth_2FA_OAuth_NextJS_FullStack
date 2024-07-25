@@ -6,8 +6,10 @@ import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schema";
 import { getUserByEmail } from "../user/getUser";
-import { generateVerificationToken } from "./generateVerificationToken";
+import { generateVerificationToken } from "../tokens/generateVerificationToken";
 import { sendVerificationMail } from "../mails/sendVerificationMail";
+import { generateTwoFactorToken } from "../tokens/generateTwoFactorToken";
+import { sendTwoFactorMail } from "../mails/sendTwoFactorMail";
 
 export const login = async (values) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -36,6 +38,13 @@ export const login = async (values) => {
     };
   }
 
+  if (existingUser.isTwoFactorConfirmation) {
+    const twoFactorToken = await generateTwoFactorToken(existingUser.email);
+    await sendTwoFactorMail(twoFactorToken.email, twoFactorToken.token);
+
+    return { twoFactor: true };
+  }
+
   try {
     await signIn("credentials", {
       email: email.toLowerCase(),
@@ -46,7 +55,7 @@ export const login = async (values) => {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CallbackRouteError":
-          return { error: "Проверьте данные для входа" };
+          return { error: "Неверная почта или пароль" };
         default:
           return { error: "Что-то пошло не так" };
       }
