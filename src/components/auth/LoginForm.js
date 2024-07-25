@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Input } from "@/shared/ui/Input";
+import { DigitsCodeInput, Input } from "@/shared/ui/Input";
 import { ButtonPrimary } from "@/shared/ui/Button";
 import TextHead from "@/shared/text/TextHead";
 import TextSecondary from "@/shared/text/TextSecondary";
@@ -36,6 +36,8 @@ const LoginForm = () => {
     defaultValues: { email: "", password: "" },
   });
 
+  const [showTwoFactor, setShowTwoFactor] = useState(false);
+  const [code, setCode] = useState("");
   const [result, setResult] = useState(null);
   const [isPending, startTransition] = useTransition();
 
@@ -43,11 +45,15 @@ const LoginForm = () => {
     const res = await login(values);
 
     console.log(res);
+
+    if (res?.twoFactor) setShowTwoFactor(true);
     setResult(res);
   };
 
   const submitForm = (values) => {
     setResult(null);
+
+    console.log(values, code);
 
     startTransition(() => {
       handleLogin(values);
@@ -62,7 +68,7 @@ const LoginForm = () => {
 
       <Card style="max-w-[400px] w-full flex flex-col gap-[20px]" padding={10}>
         <TextHead
-          text="Авторизация"
+          text={!showTwoFactor ? "Авторизация" : "Введите код из письма"}
           style={"font-medium text-[18px] text-center select-none"}
         />
 
@@ -73,32 +79,40 @@ const LoginForm = () => {
           className="flex flex-col gap-[12px]"
           onSubmit={handleSubmit(submitForm)}
         >
-          <Input
-            disabled={isPending}
-            type={"email"}
-            name="email"
-            label="E-mail"
-            borderRadius={10}
-            placeholder="swifthire@gmail.com"
-            error={errors?.email}
-            caption={errors?.email && errors?.email?.message}
-            register={register("email")}
-          />
-          <Input
-            disabled={isPending}
-            type={"password"}
-            name="password"
-            label="Пароль"
-            borderRadius={10}
-            placeholder="••••••••••••"
-            error={errors?.password}
-            caption={errors?.password && errors?.password?.message}
-            register={register("password")}
-          />
-
+          {!showTwoFactor && (
+            <>
+              <Input
+                disabled={isPending}
+                type={"email"}
+                label="E-mail"
+                borderRadius={10}
+                placeholder="swifthire@gmail.com"
+                error={errors?.email}
+                caption={errors?.email && errors?.email?.message}
+                register={register("email")}
+              />
+              <Input
+                disabled={isPending}
+                type={"password"}
+                label="Пароль"
+                borderRadius={10}
+                placeholder="••••••••••••"
+                error={errors?.password}
+                caption={errors?.password && errors?.password?.message}
+                register={register("password")}
+              />
+            </>
+          )}
+          {showTwoFactor && (
+            <DigitsCodeInput
+              code={code}
+              setCode={setCode}
+              disabled={isPending}
+            />
+          )}
           <ButtonPrimary
             type="submit"
-            text="Войти"
+            text={!showTwoFactor ? "Войти" : "Подтвердить"}
             borderRadius={10}
             style="mt-[20px]"
             loader={isPending}
